@@ -2,4 +2,7 @@
 # Program to read input from .csv files
 #
 
-pass
+class csv():
+    def __innit__(self, file):
+        pass
+
