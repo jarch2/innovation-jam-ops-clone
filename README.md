@@ -11,3 +11,9 @@
 * Learned basic syntax of Python
 * Brainstormed project ideas
 * Created mini Python projects
+
+## Week of June 17th 2022
+* Learned how to create graphs in Python
+* Learned NumPy, Pandas, and Matplotlib
+* Learned how to query DataFrame for specific info
+* Did first demo successfully
