@@ -17,3 +17,5 @@ for date in dates:
 
 plt.plot(datetimes, data['AAPL'])
 plt.show()
+
+#a test to see
