@@ -13,8 +13,10 @@ datetimes = []
 for date in dates:
     datetimes.append(dt.strptime(date, '%Y-%m-%d'))
 
-filteredStocks = top_stocks.topStocks("..//data//meta.csv",10)
+filteredStocks = top_stocks.topStocks("..//data//meta.csv", 10)
 for i in range(10):
-    plt.plot(datetimes, data[filteredStocks['ticker'][filteredStocks.index[i]]])
+    plt.plot(datetimes, data[filteredStocks['ticker'][filteredStocks.index[i]]], label = filteredStocks['ticker'][filteredStocks.index[i]])
+
+plt.legend(loc="upper left")
 
 plt.show()
