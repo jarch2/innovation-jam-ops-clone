@@ -17,8 +17,8 @@ fig, ax = plt.subplots()
 #
 # # Example data
 #
-ax.barh(stocks_filtered['name'], stocks_filtered['market_cap'], align='center')
-ax.set_yticks(stocks_filtered['name'], labels=stocks_filtered['name'])
+ax.barh(stocks_filtered['ticker'], stocks_filtered['market_cap'], align='center')
+ax.set_yticks(stocks_filtered['ticker'], labels=stocks_filtered['name'])
 ax.invert_yaxis()  # labels read top-to-bottom
 ax.set_xlabel('Dollars in trillions')
 ax.set_title('Stocks above a 1 trillion market cap')
