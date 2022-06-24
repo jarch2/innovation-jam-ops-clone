@@ -17,3 +17,9 @@
 * Learned NumPy, Pandas, and Matplotlib
 * Learned how to query DataFrame for specific info
 * Did first demo successfully
+
+
+## Week of June 24th 2022
+* Worked with sci-kit learning to make a Random Forest Classification model
+* Worked with data processing to manage the information used for the model's predictions
+* Continued to develop the model with more predicitive statistics
