@@ -65,6 +65,3 @@ def pred_buy_sell(ticker, start_date, end_date, pred_days, predictors=['Close', 
 
     return combined
 
-
-
-
