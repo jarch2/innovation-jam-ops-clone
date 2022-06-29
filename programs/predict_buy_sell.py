@@ -21,7 +21,7 @@ def pred_buy_sell(ticker, start_date, end_date, pred_days, predictors=['Close', 
 
     # Processing extra predictors
 
-    cut_off = 1
+    icut_off = 1
 
     if 'Weekly Average' in predictors:
         stock['Weekly Average'] = stock['Close'].rolling(7).mean()
@@ -38,6 +38,9 @@ def pred_buy_sell(ticker, start_date, end_date, pred_days, predictors=['Close', 
         cut_off = 91
     elif 'Weekly Average' in predictors:
         cut_off = 7
+        
+    if 'S&P500' in predictors:
+        stock['S&P500'] = web.DataReader('^GSPC', 'yahoo', start_date, end_date)['Close']
 
     stock_prev = stock.copy()
     stock_prev = stock_prev.shift(1)
@@ -59,4 +62,6 @@ def pred_buy_sell(ticker, start_date, end_date, pred_days, predictors=['Close', 
     preds[preds < target_precision] = 0
 
     combined = pd.concat({'Target': test['Target'], 'Predictions': preds}, axis=1)
+
     return combined
+
