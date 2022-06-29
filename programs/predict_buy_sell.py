@@ -58,9 +58,5 @@ def pred_buy_sell(ticker, start_date, end_date, pred_days, predictors=['Close', 
     preds[preds >= target_precision] = 1
     preds[preds < target_precision] = 0
 
-    return preds
-
-
-
-
-
+    combined = pd.concat({'Target': test['Target'], 'Predictions': preds}, axis=1)
+    return combined
