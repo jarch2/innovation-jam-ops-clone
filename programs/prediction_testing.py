@@ -11,7 +11,6 @@ for day in range(len(monke['Predictions'])):
         validity.append(1)
     else:
         validity.append(0)
-
 t_positive = 0
 f_positive = 0
 for day in range(len(monke['Predictions'])):
