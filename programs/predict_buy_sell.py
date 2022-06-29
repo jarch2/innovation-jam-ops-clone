@@ -21,7 +21,7 @@ def pred_buy_sell(ticker, start_date, end_date, pred_days, predictors=['Close', 
 
     # Processing extra predictors
 
-    icut_off = 1
+    cut_off = 1
 
     if 'Weekly Average' in predictors:
         stock['Weekly Average'] = stock['Close'].rolling(7).mean()
@@ -58,15 +58,7 @@ def pred_buy_sell(ticker, start_date, end_date, pred_days, predictors=['Close', 
     preds[preds >= target_precision] = 1
     preds[preds < target_precision] = 0
 
-    combined = pd.concat({'Target': test['Target'], 'Predictions': preds})
-
-    # Chart
-
-    plt.plot(preds, color='orange')
-    plt.plot(test['Target'], color='blue')
-    plt.show()
-
-    print(precision_score(test["Target"], preds))
+    return preds
 
 
 
