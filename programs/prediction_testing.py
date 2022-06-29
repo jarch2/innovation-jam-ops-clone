@@ -13,6 +13,7 @@ for day in range(len(monke['Predictions'])):
         validity.append(0)
 t_positive = 0
 f_positive = 0
+
 for day in range(len(monke['Predictions'])):
     if monke['Target'][day] == 1 and monke['Predictions'][day] == 1:
         t_positive += 1
