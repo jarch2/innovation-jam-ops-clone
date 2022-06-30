@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_score
 
 
-def pred_buy_sell(ticker, start_date, end_date, pred_days, predictors=['Close', 'High', 'Low', 'Open', 'Volume'],
+def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_days=60, predictors=['Close', 'High', 'Low', 'Open', 'Volume'],
                   estimators=100, samples_split=10, target_precision=0.5):
 
     # Preprocessing Data
