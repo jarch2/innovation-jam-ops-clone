@@ -7,7 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime as dt
 
-fileName = "../data//pricedata_reshaped.csv"
+fileName = "../data/pricedata_reshaped.csv"
 data = pd.read_csv(fileName)
 
 dates = [date for date in data['date']]

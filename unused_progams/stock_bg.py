@@ -7,7 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime as dt
 
-fileName = "../data//meta.csv"
+fileName = "../data/meta.csv"
 stocks = pd.read_csv(fileName)
 stocks_filtered = stocks[stocks['market_cap'] > 1e+12]
 print(stocks_filtered)
