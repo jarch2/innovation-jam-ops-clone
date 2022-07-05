@@ -1,5 +1,4 @@
-import sys
-import predict_buy_sell
+from services import predict_buy_sell
 import argparse
 import datetime as dt
 import matplotlib.pyplot as plt
@@ -17,3 +16,4 @@ preds = predict_buy_sell.pred_buy_sell(args.ticker)
 plt.plot(preds['Predictions'])
 plt.plot(preds['Target'])
 plt.show()
+
