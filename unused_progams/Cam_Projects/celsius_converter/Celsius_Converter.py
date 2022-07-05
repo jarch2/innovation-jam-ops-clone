@@ -6,6 +6,7 @@ def F2C(degrees_F):
     degrees_C = (5/9 * (degrees_F - 32))
     return degrees_C
 
+
 user = float(input("Give me a number in celsius! "))
 prime = C2F(user)
-print(str(prime) + " degrees fareneheit")
+print(str(prime) + " degrees fahrenheit")

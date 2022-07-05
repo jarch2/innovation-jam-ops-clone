@@ -12,4 +12,6 @@ def altcase(sl):
         index += 1
     return output
 
-print(altcase("Yay I created a working program :)!!"))
+
+user = input("Input a statement: ")
+print(altcase(user))

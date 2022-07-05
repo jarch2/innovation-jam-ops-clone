@@ -1,4 +1,4 @@
 
-Apple prediction
+Apple Prediction
 
-    This program runs from the command line with no arguments
+* This program runs from the command line with no arguments
