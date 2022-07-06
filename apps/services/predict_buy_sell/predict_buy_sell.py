@@ -1,11 +1,7 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-
 import pandas_datareader as web
 from datetime import datetime as dt
-
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import precision_score
 
 
 def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_days=60, predictors=['Close', 'High', 'Low', 'Open', 'Volume'],
@@ -64,4 +60,3 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
     combined = pd.concat({'Target': test['Target'], 'Predictions': preds}, axis=1)
 
     return combined
-

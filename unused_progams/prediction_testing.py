@@ -1,5 +1,5 @@
 
-from services.predict_buy_sell.predict_buy_sell import pred_buy_sell
+from apps.services.predict_buy_sell.predict_buy_sell import pred_buy_sell
 import pandas as pd
 import datetime as dt
 
