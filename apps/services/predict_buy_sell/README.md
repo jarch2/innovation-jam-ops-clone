@@ -1,0 +1,1 @@
+Trains a random forest classifier following a number of parameters
