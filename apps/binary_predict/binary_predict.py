@@ -1,4 +1,4 @@
-from services import pred_buy_sell
+from predict_buy_sell import pred_buy_sell
 import argparse
 import datetime as dt
 import matplotlib.pyplot as plt
