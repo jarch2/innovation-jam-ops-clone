@@ -5,10 +5,11 @@ description = ""
 authors = ["ja185332 <ja185332.ncr.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8,<3.11"
 pandas = "^1.4"
 pandas_datareader = "^0.10"
-scikit-learn = "^0.21"
+scipy = "^1.8.1"
+sklearn = "^0.0"
 
 [tool.poetry.dev-dependencies]
 
