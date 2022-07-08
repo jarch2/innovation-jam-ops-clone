@@ -26,3 +26,7 @@
 ## Week of July 1st 2022
 * Tested the precision of the model
 * Added command line arguments to the program
+
+## Week of July 8th 2022
+* Restructured repo into a monorepo
+* Began managing dependencies with Poetry
