@@ -7,6 +7,7 @@ authors = ["ja185332 <ja185332.ncr.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 predict_buy_sell = {path = "../../services/predict_buy_sell"}
+matplotlib = "^3.5.2"
 
 [tool.poetry.dev-dependencies]
 
