@@ -8,6 +8,8 @@ authors = ["ja185332 <ja185332.ncr.com>"]
 requests = "^2.28"
 python = ">=3.8,<3.11"
 scipy = "^1.8.1"
+textblob = "^0.17.1"
+pandas = "^1.4.3"
 
 [tool.poetry.dev-dependencies]
 
