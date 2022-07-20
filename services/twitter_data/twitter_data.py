@@ -4,7 +4,7 @@ import os
 
 
 def get_data(tweet):
-    data = {'id': [tweet['id_str']],'created_at': [tweet['created_at']],'text': [tweet['full_text']]}
+    data = {'id': [tweet['id_str']], 'created_at': [tweet['created_at']], 'text': [tweet['full_text']]}
     return data
 
 
