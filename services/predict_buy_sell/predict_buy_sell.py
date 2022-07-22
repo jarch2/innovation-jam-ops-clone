@@ -1,10 +1,14 @@
 import pandas as pd
 import pandas_datareader as web
 from datetime import datetime as dt
+from datetime import timedelta
+from datetime import date
 from sklearn.ensemble import RandomForestClassifier
+from finnhub_data import finnhub_data
+from sentiment import avg_sentiment
 
 
-def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_days=60, predictors=['Close', 'High', 'Low', 'Open', 'Volume'],
+def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_days=30, predictors=['Close', 'High', 'Low', 'Open', 'Volume'],
                   estimators=100, samples_split=10, target_precision=0.5):
 
     # Preprocessing Data
@@ -38,6 +42,17 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
     if 'S&P500' in predictors:
         stock['S&P500'] = web.DataReader('^GSPC', 'yahoo', start_date, end_date)['Close']
 
+    if 'Sentiment' in predictors:
+        stock['Sentiment'] = ''
+        news = finnhub_data(ticker, start_date, end_date, 3)
+
+        for date in stock.index:
+            daily = news.copy().loc[news['date'] == date.date()]
+            if daily.empty:
+                stock.loc[date, 'Sentiment'] = None
+            else:
+                stock.loc[date, 'Sentiment'] = avg_sentiment(daily['headline'].tolist())
+
     stock_prev = stock.copy()
     stock_prev = stock_prev.shift(1)
 
@@ -60,3 +75,4 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
     combined = pd.concat({'Target': test['Target'], 'Predictions': preds}, axis=1)
 
     return combined
+
