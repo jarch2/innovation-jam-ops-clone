@@ -239,7 +239,7 @@ tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "pa
 
 [[package]]
 name = "predict-buy-sell"
-version = "0.1.1"
+version = "0.1.5"
 description = ""
 category = "main"
 optional = false

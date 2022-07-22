@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "predict_buy_sell"
-version = "0.1.1"
+version = "0.1.5"
 description = ""
 authors = ["ja185332 <ja185332.ncr.com>"]
 
