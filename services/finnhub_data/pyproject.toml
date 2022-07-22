@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "finnhub_data"
-version = "0.1.0"
+version = "0.1.8"
 description = ""
 authors = ["ja185332 <ja185332.ncr.com>"]
 
