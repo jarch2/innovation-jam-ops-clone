@@ -34,3 +34,8 @@
 ## Week of July 15th 2022
 * Learned how to use the Twitter API and developer tools
 * Did sentiment analysis of Twitter data using TextBlob to measure public opinion surrounding a stock
+
+## Week of July 22nd 2022
+* Used FinnHub's API to collect article headlines about stocks from the past year
+* Using the headlines we did sentiment analysis
+* Integrated sentiment analysis into the stock prediction model
