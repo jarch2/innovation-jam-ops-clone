@@ -36,22 +36,25 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
         cut_off = 365
     elif 'Quarterly Average' in predictors:
         cut_off = 91
-    elif 'Weekly Average' in predictors:
+    elif 'Weekly Average' in predictors or 'Weekly Sentiment' in predictors:
         cut_off = 7
         
     if 'S&P500' in predictors:
         stock['S&P500'] = web.DataReader('^GSPC', 'yahoo', start_date, end_date)['Close']
 
-    if 'Sentiment' in predictors:
+    if 'Sentiment' in predictors or 'Weekly Sentiment' in predictors:
         stock['Sentiment'] = ''
         news = finnhub_data(ticker, start_date, end_date, 3)
 
         for date in stock.index:
             daily = news.copy().loc[news['date'] == date.date()]
             if daily.empty:
-                stock.loc[date, 'Sentiment'] = None
+                stock.loc[date, 'Sentiment'] = 0.1
             else:
                 stock.loc[date, 'Sentiment'] = avg_sentiment(daily['headline'].tolist())
+
+    if 'Weekly Sentiment' in predictors:
+        stock['Weekly Sentiment'] = stock['Sentiment'].rolling(7).mean()
 
     stock_prev = stock.copy()
     stock_prev = stock_prev.shift(1)
@@ -67,7 +70,7 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
 
     model.fit(train[predictors], train['Target'])
 
-    preds = model.predict_proba(test[predictors])[:, 1]
+    preds = (model.predict_proba(test[predictors]))[:, 1]
     preds = pd.Series(preds, index=test.index)
     preds[preds >= target_precision] = 1
     preds[preds < target_precision] = 0
@@ -76,3 +79,7 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
 
     return combined
 
+
+if __name__ == '__main__':
+    print(pred_buy_sell('AAPL', start_date=dt(2020,1,1), end_date=dt(2022,7,30), pred_days=1, predictors=['Close', 'High', 'Low', 'Open', 'Volume'],
+                  estimators=100, samples_split=10, target_precision=0.5).head())
