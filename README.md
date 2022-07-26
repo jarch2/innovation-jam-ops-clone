@@ -37,5 +37,5 @@
 
 ## Week of July 22nd 2022
 * Used FinnHub's API to collect article headlines about stocks from the past year
-* Using the headlines we did sentiment analysis
+* Did sentiment analysis using the article headlines
 * Integrated sentiment analysis into the stock prediction model
