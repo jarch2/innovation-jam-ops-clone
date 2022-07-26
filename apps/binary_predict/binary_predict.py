@@ -14,7 +14,14 @@ parser.add_argument('--pred_days', type=int, required=False)
 parser.add_argument('--samples_split', type=int, required=False)
 args = parser.parse_args()
 
-preds = pred_buy_sell(args.ticker, start_date=dt.datetime.strptime(args.start_date, '%Y-%m-%d'), end_date=dt.datetime.strptime(args.end_date, '%Y-%m-%d'), predictors=args.predictors)
+if args.precision is None:
+    args.precision = 0.5
+if args.pred_days is None:
+    args.pred_days = 30
+
+preds = pred_buy_sell(args.ticker, start_date=dt.datetime.strptime(args.start_date, '%Y-%m-%d'),
+                      end_date=dt.datetime.strptime(args.end_date, '%Y-%m-%d'), predictors=args.predictors,
+                      target_precision=args.precision, pred_days=args.pred_days)
 
 plt.plot(preds['Predictions'])
 plt.plot(preds['Target'])
