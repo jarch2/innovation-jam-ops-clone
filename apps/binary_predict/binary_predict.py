@@ -18,14 +18,27 @@ if args.precision is None:
     args.precision = 0.5
 if args.pred_days is None:
     args.pred_days = 30
+if args.start_date is None:
+    args.start_date = '2021-8-5'
+if args.end_date is None:
+    args.end_date = '2022-8-5'
+if args.estimators is None:
+    args.estimators = 100
+if args.predictors is None:
+    args.predictors = ['Open', 'Close', 'High', 'Low', 'Volume']
+if args.samples_split is None:
+    args.samples_split = 10
 
 preds = pred_buy_sell(args.ticker, start_date=dt.datetime.strptime(args.start_date, '%Y-%m-%d'),
                       end_date=dt.datetime.strptime(args.end_date, '%Y-%m-%d'), predictors=args.predictors,
-                      target_precision=args.precision, pred_days=args.pred_days)
+                      target_precision=args.precision, pred_days=args.pred_days, samples_split=args.samples_split,
+                      estimators=args.estimators)
 
 plt.plot(preds['Predictions'])
 plt.plot(preds['Target'])
 plt.show()
+
+print(preds.head())
 
 true_p = 0
 false_p = 0
@@ -35,5 +48,8 @@ for i in preds.index:
     if preds.loc[i, 'Predictions'] == 1 and preds.loc[i, 'Target'] == 0:
         false_p += 1
 
-print('Precision of model test: ' + str(true_p / (true_p + false_p)))
+if true_p + false_p == 0:
+    print('Precision cannot be calculated as the model did not predict any positives')
+else:
+    print('Precision of model test: ' + str(true_p / (true_p + false_p)))
 

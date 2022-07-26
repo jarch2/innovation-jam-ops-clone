@@ -79,3 +79,7 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
 
     return combined
 
+
+if __name__ == '__main__':
+    print(pred_buy_sell('AAPL', start_date=dt(2020,1,1), end_date=dt(2022,7,30), pred_days=1, predictors=['Close', 'High', 'Low', 'Open', 'Volume'],
+                  estimators=100, samples_split=10, target_precision=0.5).head())
