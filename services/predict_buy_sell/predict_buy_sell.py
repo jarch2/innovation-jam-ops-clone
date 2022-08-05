@@ -1,8 +1,6 @@
 import pandas as pd
-import pandas_datareader as web
+import pandas_datareader
 from datetime import datetime as dt
-from datetime import timedelta
-from datetime import date
 from sklearn.ensemble import RandomForestClassifier
 from finnhub_data import finnhub_data
 from sentiment import avg_sentiment
@@ -13,24 +11,24 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
 
     # Preprocessing Data
 
-    stock = web.DataReader(ticker, 'yahoo', start_date, end_date)
+    stock_info = pandas_datareader.DataReader(ticker, 'yahoo', start_date, end_date)
 
-    data = stock[['Close']]
-    data = data.rename(columns={'Close': 'Actual_Close'})
-    data['Target'] = stock.rolling(2).apply(lambda x: x.iloc[1] > x.iloc[0])['Close']
+    data = stock_info[['Close']]
+    data = data.rename(columns={'Close': 'True_Close'})
+    data['Target'] = stock_info['Close'].rolling(2).apply(lambda x: x.iloc[1] > x.iloc[0])
 
     # Processing extra predictors
 
     cut_off = 1
 
     if 'Weekly Average' in predictors:
-        stock['Weekly Average'] = stock['Close'].rolling(7).mean()
+        stock_info['Weekly Average'] = stock_info['Close'].rolling(7).mean()
 
     if 'Quarterly Average' in predictors:
-        stock['Quarterly Average'] = stock['Close'].rolling(91).mean()
+        stock_info['Quarterly Average'] = stock_info['Close'].rolling(91).mean()
 
     if 'Yearly Average' in predictors:
-        stock['Yearly Average'] = stock['Close'].rolling(365).mean()
+        stock_info['Yearly Average'] = stock_info['Close'].rolling(365).mean()
 
     if 'Yearly Average' in predictors:
         cut_off = 365
@@ -40,23 +38,23 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
         cut_off = 7
         
     if 'S&P500' in predictors:
-        stock['S&P500'] = web.DataReader('^GSPC', 'yahoo', start_date, end_date)['Close']
+        stock_info['S&P500'] = pandas_datareader.DataReader('^GSPC', 'yahoo', start_date, end_date)['Close']
 
     if 'Sentiment' in predictors or 'Weekly Sentiment' in predictors:
-        stock['Sentiment'] = ''
+        stock_info['Sentiment'] = ''
         news = finnhub_data(ticker, start_date, end_date, 3)
 
-        for date in stock.index:
+        for date in stock_info.index:
             daily = news.copy().loc[news['date'] == date.date()]
             if daily.empty:
-                stock.loc[date, 'Sentiment'] = 0.1
+                stock_info.loc[date, 'Sentiment'] = 0.1
             else:
-                stock.loc[date, 'Sentiment'] = avg_sentiment(daily['headline'].tolist())
+                stock_info.loc[date, 'Sentiment'] = avg_sentiment(daily['headline'].tolist())
 
     if 'Weekly Sentiment' in predictors:
-        stock['Weekly Sentiment'] = stock['Sentiment'].rolling(7).mean()
+        stock_info['Weekly Sentiment'] = stock_info['Sentiment'].rolling(7).mean()
 
-    stock_prev = stock.copy()
+    stock_prev = stock_info.copy()
     stock_prev = stock_prev.shift(1)
 
     data = data.join(stock_prev[predictors]).iloc[cut_off:]
@@ -81,5 +79,5 @@ def pred_buy_sell(ticker, start_date=dt(2000,1,1), end_date=dt(2020,1,1), pred_d
 
 
 if __name__ == '__main__':
-    print(pred_buy_sell('AAPL', start_date=dt(2020,1,1), end_date=dt(2022,7,30), pred_days=1, predictors=['Close', 'High', 'Low', 'Open', 'Volume'],
+    print(pred_buy_sell('NCR', start_date=dt(2021,1,1), end_date=dt(2022,8,1), pred_days=30, predictors=['Close', 'High', 'Low', 'Open', 'Volume'],
                   estimators=100, samples_split=10, target_precision=0.5).head())
