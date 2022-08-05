@@ -39,3 +39,6 @@
 * Used FinnHub's API to collect article headlines about stocks from the past year
 * Did sentiment analysis using the article headlines
 * Integrated sentiment analysis into the stock prediction model
+
+## Post Transfer
+* copied over to personal github to keep a record of internship work
